@@ -13,6 +13,7 @@ USER_RESPONSES = []
 def show_main_page():
     return render_template("main.html", title=satisfaction_survey.title, instructions=satisfaction_survey.instructions)
 
-@app.route('/questions/0')
-def show_question():
-    return render_template("question.html")
+@app.route('/questions/<q_number>')
+def show_question(q_number):
+    current_question= satisfaction_survey.questions[q_number]
+    return render_template("question.html", question_number=q_number, question_text=current_question.question, choices = current_question.choices)

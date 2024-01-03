@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
 
-{% block title %} Question {% endblock %}
+{% block title %} Question {{question_number}} {% endblock %}
 
 
 {% block content %}
-    <h1>You made it!</h1>
+    <h1>Question {{question_number}}: </h1>
+    <p>{{question_text}}</p>
+    <form action="/answer" method="post">
+        {% for choice in choices %}
+            <input type="radio" id="question-{{question_number}}-{{choice.split(' ').join('-')}}" name="question-{{question_number}}" value="{{choice}}"/>
+            <label for="question-{{question_number}}-{{choice.split(' ').join('-')}}">{{choice}}</label><br>
+        {% for %}
+        <button>Submit</button>
+    </form>
 {% endblock %}
