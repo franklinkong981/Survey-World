@@ -46,7 +46,7 @@ personality_quiz = Survey(
                  ["Porcupines", "Hedgehogs"]),
         Question("Which is the worst function name, and why?",
                  ["do_stuff()", "run_me()", "wtf()"],
-                 allow_text=True),
+                 allow_comments=True),
     ]
 )
 

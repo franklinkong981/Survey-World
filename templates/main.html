@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Survey World {% endblock %}
+
+
+{% block content %}
+    <h1>WELCOME TO SURVEY WORLD!</h1>
+    <h2>You'll be completing the following survey: {{title}}</h2>
+    <p>Instructions: {{instructions}}</p>
+    <a href="/questions/0">Begin Survey</a>
+{% endblock %}
