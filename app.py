@@ -11,7 +11,10 @@ USER_RESPONSES = []
 
 @app.route('/')
 def show_main_page():
-    USER_RESPONSES.clear()
+    if len(USER_RESPONSES) >= len(satisfaction_survey.questions):
+        return redirect('/thanks')
+    elif len(USER_RESPONSES) != 0:
+        return redirect('/questions/' + str(len(USER_RESPONSES))) 
     return render_template("main.html", title=satisfaction_survey.title, instructions=satisfaction_survey.instructions)
 
 @app.route('/questions/<q_number>')
