@@ -15,5 +15,16 @@ def show_main_page():
 
 @app.route('/questions/<q_number>')
 def show_question(q_number):
-    current_question= satisfaction_survey.questions[q_number]
+    q_number = int(q_number)
+    current_question = satisfaction_survey.questions[q_number]
     return render_template("question.html", question_number=q_number, question_text=current_question.question, choices = current_question.choices)
+
+@app.route('/answer/<q_number>', methods=["POST"])
+def add_response(q_number):
+    answer = request.form["answer"]
+    # add answer to the list of user responses
+    USER_RESPONSES.append(answer)
+    q_number = int(q_number)
+    next_q_number = q_number + 1
+    next_q_number = str(next_q_number)
+    return redirect('/questions/' + next_q_number)
