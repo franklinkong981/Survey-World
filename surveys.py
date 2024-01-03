@@ -1,19 +1,21 @@
 class Question:
-    """Question on a questionnaire."""
+    """Question on a questionnaire. Contains the question text (string), list of choices, 
+    and a boolean on whether the question allows comments that allows user to elaborate on their choice."""
 
-    def __init__(self, question, choices=None, allow_text=False):
-        """Create question (assume Yes/No for choices."""
+    def __init__(self, question, choices=None, allow_comments=False):
+        """Create question (assume Yes/No for choices)."""
 
         if not choices:
             choices = ["Yes", "No"]
 
         self.question = question
         self.choices = choices
-        self.allow_text = allow_text
+        self.allow_comments = allow_comments
 
 
 class Survey:
-    """Questionnaire."""
+    """Questionnaire.
+    Includes the title of the survey (string), instructions for the survey (string) and questions, a list of Question objects."""
 
     def __init__(self, title, instructions, questions):
         """Create questionnaire."""
