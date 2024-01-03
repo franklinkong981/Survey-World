@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 
-{% block title %} Question {{question_number}} {% endblock %}
+{% block title %} Question {{question_number + 1}} {% endblock %}
 
 
 {% block content %}
-    <h1>Question {{question_number}}: </h1>
+    <h1>Question {{question_number + 1}}: </h1>
     <p>{{question_text}}</p>
     <form action="/answer/{{question_number}}" method="post">
         {% for choice in choices %}

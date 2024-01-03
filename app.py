@@ -24,7 +24,11 @@ def add_response(q_number):
     answer = request.form["answer"]
     # add answer to the list of user responses
     USER_RESPONSES.append(answer)
-    q_number = int(q_number)
-    next_q_number = q_number + 1
-    next_q_number = str(next_q_number)
-    return redirect('/questions/' + next_q_number)
+    next_q_number = int(q_number) + 1
+    if next_q_number >= len(satisfaction_survey.questions):
+        return redirect('/thanks')
+    return redirect('/questions/' + str(next_q_number))
+
+@app.route('/thanks')
+def show_thanks():
+    return render_template("thanks.html", survey_name=satisfaction_survey.title)
