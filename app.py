@@ -11,24 +11,32 @@ USER_RESPONSES = []
 
 @app.route('/')
 def show_main_page():
+    USER_RESPONSES.clear()
     return render_template("main.html", title=satisfaction_survey.title, instructions=satisfaction_survey.instructions)
 
 @app.route('/questions/<q_number>')
 def show_question(q_number):
     q_number = int(q_number)
+    if q_number != len(USER_RESPONSES):
+        return redirect('/questions/' + str(len(USER_RESPONSES)))
+    elif len(USER_RESPONSES) >= len(satisfaction_survey.questions):
+        return redirect('/thanks')
     current_question = satisfaction_survey.questions[q_number]
     return render_template("question.html", question_number=q_number, question_text=current_question.question, choices = current_question.choices)
 
-@app.route('/answer/<q_number>', methods=["POST"])
-def add_response(q_number):
+@app.route('/answer', methods=["POST"])
+def add_response():
     answer = request.form["answer"]
     # add answer to the list of user responses
     USER_RESPONSES.append(answer)
-    next_q_number = int(q_number) + 1
-    if next_q_number >= len(satisfaction_survey.questions):
+    if len(USER_RESPONSES) >= len(satisfaction_survey.questions):
         return redirect('/thanks')
-    return redirect('/questions/' + str(next_q_number))
+    return redirect('/questions/' + str(len(USER_RESPONSES)))
 
 @app.route('/thanks')
 def show_thanks():
+    if len(USER_RESPONSES) == 0:
+        return redirect('/')
+    elif len(USER_RESPONSES) < len(satisfaction_survey.questions):
+        return redirect('/questions/' + str(len(USER_RESPONSES)))
     return render_template("thanks.html", survey_name=satisfaction_survey.title)
