@@ -8,5 +8,7 @@
     <h1>WELCOME TO SURVEY WORLD!</h1>
     <h2>You'll be completing the following survey: {{title}}</h2>
     <p>Instructions: {{instructions}}</p>
-    <a href="/questions/0">Begin Survey</a>
+    <form action="/start-survey" method="post">
+        <button>Start Survey</button>
+    </form>
 {% endblock %}
